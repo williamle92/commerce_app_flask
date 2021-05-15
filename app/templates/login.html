@@ -3,7 +3,7 @@
 
 {% block content %}
 
-<h3>Login</h3>
+<h3>Login to use our app</h3>
 
 <form action="" method="POST">
     {{ form.hidden_tag() }}
@@ -20,7 +20,10 @@
             {{ form.remember_me }}
             {{ form.remember_me.label }}
         </fieldset>
-        {{ form.submit(class='btn btn-primary') }}
+        {{ form.submit(class='btn btn-primary') }} 
+
+        </div>
+
     </div>
 </form>
 
