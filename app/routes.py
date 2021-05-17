@@ -40,6 +40,11 @@ def signup():
         db.session.add(newuser)
         db.session.commit()
         flash(f"Thank you {username} for creating an account with us! We hope you enjoy your time here!", 'success')
+
+
+        msg = Message(f'Thank you, {username}', recipients=[email])
+        msg.body = f'Dear {username}, thank you for registering for our application and supporting our product. We hope you enjoy this application and look forward to seeing you around. Rest assured, your user information is safe with us. Have an awesome time storing your contacts!'
+        mail.send(msg)
         return redirect(url_for('login'))
     return render_template('signup.html', title=title, form=form)
 
