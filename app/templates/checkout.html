@@ -1,0 +1,133 @@
+{% extends "base.html" %}
+{% block content %}
+<!-- Page Add Section Begin -->
+<section class="page-add">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="page-breadcrumb">
+                    <h2>Check Out<span>.</span></h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Page Add Section End -->
+<!-- Cart Total Page Begin -->
+<section class="cart-total-page spad">
+    <div class="container">
+        <form action="#" class="checkout-form" method="POST">
+            {{ form.hidden_tag() }}
+            <div class="row">
+                <div class="col-lg-12">
+                    <h3>Your Information</h3>
+                </div>
+                <div class="col-lg-9">
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <p class="in-name">{{ form.name.label }}</p>
+                        </div>
+
+                        <div class="col-lg-5">
+
+                            {{ form.name(class="form-control form-control-lg") }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <p class="in-name">{{ form.address.label }}</p>
+                        </div>
+                        <div class="col-lg-10">
+                            {{ form.address(class="form-control form-control-lg") }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <p class="in-name">Country</p>
+                        </div>
+                        <div class="col-lg-10">
+                            <select class="cart-select country-usa" name="country_select">
+                                <option>Italy</option>
+                                <option>ThaiLand</option>
+                                <option>India</option>
+                                <option>Japan</option>
+                                <option>Combodia</option>
+                                <option>France</option>
+                                <option>Russia</option>
+                                <option>Australia</option>
+                                <option>Denmark </option>
+                                <option>Greece</option>
+                                <option>Spain</option>
+                                <option>Sweden</option>
+                                <option>Switzerland</option>
+                                <option>Turkey</option>
+                                <option>Mexico</option>
+                                <option>Brazil</option>
+                                <option>Korea</option>
+                                <option>Portugal</option>
+                                <option>Poland</option>
+                                <option>Vietnam</option>
+                                <option>United State</option>
+                                <option>United Kingdom</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <p class="in-name">{{ form.city.label }}</p>
+                        </div>
+                        <div class="col-lg-10">
+                            {{ form.city(class="form-control form-control-lg") }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <p class="in-name">{{ form.zipcode.label }}</p>
+                        </div>
+                        <div class="col-lg-10">
+                            {{ form.zipcode(class="form-control form-control-lg") }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <p class="in-name">{{ form.phone.label }}</p>
+                        </div>
+                        <div class="col-lg-10">
+
+                            {{ form.phone(class="form-control form-control-lg") }}
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-lg-3">
+                    <div class="order-table">
+                        <!-- <div class="cart-item">
+                            <span>Product</span>
+                            <p class="product-name">Blue Dotted Shirt</p>
+                        </div> -->
+                        <div class="cart-item">
+                            <span>SubTotal</span>
+                            <p>${{ session['subtotal'] }}</p>
+                        </div>
+                        <div class="cart-item">
+                            <span>Quantity</span>
+                            <p>1</p>
+                        </div>
+                        <div class="cart-item">
+                            <span>Shipping</span>
+                            <p>${{ session['shipping'] }}</p>
+                        </div>
+
+                        <div class="cart-total">
+                            <span>Total</span>
+                            <p>${{ session['total'] }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</section>
+<!-- Cart Total Page End -->
+{% endblock content %}

@@ -1,0 +1,71 @@
+{% extends 'base.html' %} 
+
+
+{% block content %} 
+    <!-- Page Add Section Begin -->
+    <section class="page-add">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="page-breadcrumb">
+                        <h2>Categories<span>.</span></h2>
+                        <a href="#">Men</a>
+                        <a href="#">Women</a>
+                        <a class="active" href="#">Fragrance</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Page Add Section End -->
+
+    <!-- Product Page Section Beign -->
+    <section class="product-page">
+        <div class="container">
+            <div class="product-control">
+                <a href="#">Previous</a>
+                <a href="#">Next</a>
+            </div>
+            <!-- {{ url_for('static', filename='img/product/product-1.jpg') }} -->          
+            <div class="row">
+                <div class="col-lg-6">
+
+                
+                    
+                    <div class="product-content">
+                        <h2>{{ item.title }}</h2>
+                        <div class="pc-meta">
+                            <h5>$ {{ item.amount }}</h5>
+                            <div class="rating">
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </div>
+                        </div>
+                        <p>{{ item.description }}</p>
+
+                        <form method="POST" action="">
+                        <div class="product-quantity">
+                            <div class="pro-qty">
+                                
+                                <input type="text" value="1" name = "quantity">
+                                
+                            </div>
+                        </div>
+                        <input type="submit" class="primary-btn pc-btn" value="Add to cart">
+                        </form>
+                        <ul class="p-info">
+                            <li>Product Information</li>
+                            <li>Reviews</li>
+                            <li>Product Care</li>
+                        </ul>
+                    </div>
+                </div>
+            
+        </div>
+    </section>
+    <!-- Product Page Section End -->
+
+  {% endblock content %} 

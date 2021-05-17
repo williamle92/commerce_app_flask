@@ -1,12 +1,17 @@
 from operator import index
-from app import db, login
+from flask import current_app, session
+from sqlalchemy.orm import backref
+from app import db, login, app
 from werkzeug.security import check_password_hash, generate_password_hash
 from datetime import datetime
 from flask_login import UserMixin
 
 @login.user_loader
 def load_user(user_id):
-    return User.query.get(user_id)
+    try:
+        return User.query.get(user_id)
+    except:
+        return None
 
 
 class User(db.Model, UserMixin):
@@ -14,13 +19,14 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(50), nullable=False, unique=True)
     email = db.Column(db.String(150),nullable=False, unique=True)
     password = db.Column(db.String(256), nullable=False)
-    cart = db.relationship('Cart', backref='author', lazy='dynamic')
 
     def __init__(self, username, email, password):
         self.username = username
         self.email = email
         self.password=generate_password_hash(password)
     
+    def is_authenticated(self):
+        return True
 
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
@@ -32,20 +38,36 @@ class User(db.Model, UserMixin):
 class Item(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     amount = db.Column(db.Integer, nullable= False)
-    title = db.Column(db.String(50))
+    title = db.Column(db.String(50), nullable=False)
     description = db.Column(db.String(300))
-    cart_id = db.Column(db.Integer, db.ForeignKey('cart.id'), nullable=False)
 
-    def __init__(self, amount, title, description, user_id):
-        self.amount = amount
-        self.title = title
-        self.description = description
-        self.user_id = user_id
 
     def __repr__(self):
-        return '<item {}>'.format(self.firstname)
+        return f'<Item {self.title} {self.amount} >'
+
+
 
 class Cart(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    total = db.Column(db.Integer, nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.username'), nullable=False)
+    item_id = db.Column(db.Integer, db.ForeignKey('item.id'), nullable=False)
+    quantity= db.Column(db.Integer, nullable=False)
+    info_id = db.Column(db.Integer, db.ForeignKey('info.id'))
+    usershipping = db.Column(db.Integer, db.ForeignKey('usershipping.id'))
+
+    def __repr__(self):
+        return f"Cart Item('{self.quantity}')" 
+
+class Info(db.Model):
+    id = db.Column(db.Integer, primary_key = True)
+    name = db.Column(db.String(50), nullable = False)
+    address = db.Column(db.String(100), nullable = False)
+    country = db.Column(db.String(20), nullable = False)
+    city = db.Column(db.String(50), nullable = False)
+    zipcode = db.Column(db.String(100), nullable = False)
+    phone = db.Column(db.String(15), nullable = False)
+    cartitems = db.relationship("Cart", backref="cart", lazy = 'dynamic')
+    order_date = db.Column(db.DateTime, nullable = False, default = datetime.utcnow)
+    total = db.Column(db.Integer, nullable = False)
+
+    def __repr__(self):
+        return f"Infor('{self.firstname}', '{self.address}','{self.phone}')"
