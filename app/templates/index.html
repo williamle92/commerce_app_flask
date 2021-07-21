@@ -18,22 +18,25 @@
     <div class="container">
 
       <div class="row">
+        {% for item in items %}
         <div class="col-md-4">
           <div class="card mb-4 box-shadow">
-            <img class="card-img-top" src="https://images-na.ssl-images-amazon.com/images/I/81UV-e3xgeL._AC_SL1500_.jpg" alt="gaming uprising" width="200px">
+            <img class="card-img-top" src="{{ item.imgurl }}" alt="gaming uprising" width="200px">
             <div class="card-body">
-              <p class="card-text">MSI Gaming GeForce RTX 3080 10GB GDRR6X 320-Bit HDMI/DP Nvlink Tri-Frozr 2 Ampere Architecture OC Graphics Card (RTX 3080 GAMING X TRIO 10G)</p>
+              <h5 class="card-text">{{ item.title }}</h5>
+              <p class="card-text">{{ item.description }}</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
                   <button  href="/viewitem.html" class="btn btn-sm btn-outline-secondary">View Item</button>
                   <button type="button" class="btn btn-sm btn-outline-secondary">Add to Cart</button>
                 </div>
-                <small class="text-success">$2,950.00</small>
+                <small class="text-success">${{ item.amount}}</small>
               </div>
             </div>
           </div>
         </div>
-        <div class="col-md-4">
+        {% endfor %} 
+        <!-- <div class="col-md-4">
           <div class="card mb-4 box-shadow">
             <img class="card-img-top" src="https://images-na.ssl-images-amazon.com/images/I/91XyrUFYKfL._AC_SL1500_.jpg" alt="ultra gaming" width="200px">
             <div class="card-body">
@@ -159,7 +162,7 @@
     </div>
   </div>
 
-</main>
+</main> -->
 
 
 

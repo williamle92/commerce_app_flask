@@ -19,7 +19,8 @@ from flask_mail import Message
 @login_required
 def index():
     title= 'Home'
-    return render_template('index.html', title=title)
+    items = Item.query.all()
+    return render_template('index.html', title=title, items=items)
 
 
 @app.route('/signup', methods=['GET', 'POST'])
@@ -42,9 +43,9 @@ def signup():
         flash(f"Thank you {username} for creating an account with us! We hope you enjoy your time here!", 'success')
 
 
-        msg = Message(f'Thank you, {username}', recipients=[email])
-        msg.body = f'Dear {username}, thank you for registering for our application and supporting our product. We hope you enjoy this application and look forward to seeing you around. Rest assured, your user information is safe with us. Have an awesome time storing your contacts!'
-        mail.send(msg)
+        # msg = Message(f'Thank you, {username}', recipients=[email])
+        # msg.body = f'Dear {username}, thank you for registering for our application and supporting our product. We hope you enjoy this application and look forward to seeing you around. Rest assured, your user information is safe with us. Have an awesome time storing your contacts!'
+        # mail.send(msg)
         return redirect(url_for('login'))
     return render_template('signup.html', title=title, form=form)
 
@@ -88,18 +89,18 @@ def cart():
     subtotal = 0
     order = {}
     session['quantity'] = 0
-    productc = Item()
+    cart = Cart()
     if 'cart' in session:
         print(session['cart'])
         for d in session['cart']:
             for k in d:
                 product = Item.query.filter_by(title = k).first()
                 order[product.title] = []
-                order[product.title].append(productc.price) 
-                order[product.title].append(productc.image_file) 
+                order[product.title].append(cart.price) 
+                order[product.title].append(cart.image_file) 
                 order[product.title].append(d[k])
-                order[product.title].append(productc.price * d[k]) 
-                subtotal += productc.price * d[k]
+                order[product.title].append(cart.price * d[k]) 
+                subtotal += cart.price * d[k]
                 session['quantity'] += d[k]
     print(order)   
     session['order'] = order
@@ -113,7 +114,7 @@ def cart():
 
 
 
-@app.route('/items/<int:item_id>', methods=['POST','GET'])
+@app.route('/items/<int:item_id>', methods=['GET'])
 def additem(item_id):
     products = Item()
     item = Item.query.get_or_404(item_id)

@@ -40,6 +40,12 @@ class Item(db.Model):
     amount = db.Column(db.Integer, nullable= False)
     title = db.Column(db.String(50), nullable=False)
     description = db.Column(db.String(300))
+    imgurl = db.Column(db.String(500))
+    def __init__(self, title, amount, description, imgurl):
+        self.title = title
+        self.amount = amount
+        self.description=description
+        self.imgurl = imgurl
 
 
     def __repr__(self):
@@ -52,7 +58,7 @@ class Cart(db.Model):
     item_id = db.Column(db.Integer, db.ForeignKey('item.id'), nullable=False)
     quantity= db.Column(db.Integer, nullable=False)
     info_id = db.Column(db.Integer, db.ForeignKey('info.id'))
-    usershipping = db.Column(db.Integer, db.ForeignKey('usershipping.id'))
+    usershipping = db.Column(db.Integer, db.ForeignKey('info.id'))
 
     def __repr__(self):
         return f"Cart Item('{self.quantity}')" 
@@ -65,7 +71,6 @@ class Info(db.Model):
     city = db.Column(db.String(50), nullable = False)
     zipcode = db.Column(db.String(100), nullable = False)
     phone = db.Column(db.String(15), nullable = False)
-    cartitems = db.relationship("Cart", backref="cart", lazy = 'dynamic')
     order_date = db.Column(db.DateTime, nullable = False, default = datetime.utcnow)
     total = db.Column(db.Integer, nullable = False)
 
